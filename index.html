@@ -90,6 +90,42 @@ function sendOrder() {
   <p id="orderMsg" style="color:#e91e63; font-weight:bold; font-size:18px; margin-top:15px;"></p>
 </div>
 
+</<!-- ORDER BOX -->
+<div style="background:#fff; padding:20px; border-radius:15px; max-width:400px; margin:20px auto; text-align:center; box-shadow:0 0 10px #ccc;">
+  <h2>Order Now</h2>
+  <input id="custName" type="text" placeholder="Your Name" style="width:100%; padding:12px; margin-bottom:10px; border-radius:8px; border:1px solid #ccc;">
+  <input id="custDate" type="date" style="width:100%; padding:12px; margin-bottom:15px; border-radius:8px; border:1px solid #ccc;">
+  <button onclick="sendOrder()" style="width:100%; padding:12px; background:#25D366; color:#fff; border:none; border-radius:8px; font-size:16px; font-weight:bold;">ORDER NOW</button>
+</div>
+
+<!-- FULL SCREEN BIG MESSAGE -->
+<div id="bigLove" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:linear-gradient(135deg,#ff5e8a,#ff9a9e,#ffc3a0); z-index:9999; text-align:center; justify-content:center; align-items:center; flex-direction:column; overflow:hidden;">
+  <div style="font-size:80px; animation: bounce 1s infinite;">🩷💖🩷</div>
+  <h1 style="color:white; font-size:55px; line-height:1.1; margin:10px; text-shadow:0 5px 20px rgba(0,0,0,0.3); animation: pop 0.6s ease;">Congratulations🩷</h1>
+  <h2 style="color:white; font-size:32px; margin:10px 20px; animation: pop 0.8s ease;">Order Received janu...<br>will be packaged soon</h2>
+  <p style="color:white; font-size:28px; font-weight:bold; animation: pop 1s ease;">Love you janu🩷</p>
+  <button onclick="closeLove()" style="margin-top:20px; padding:15px 40px; background:white; color:#ff5e8a; border:none; border-radius:50px; font-size:18px; font-weight:bold;">Close ❤️</button>
+  <div style="position:absolute; font-size:40px; animation: float 3s infinite; top:10%; left:10%;">💖</div>
+  <div style="position:absolute; font-size:50px; animation: float 4s infinite; top:70%; left:85%;">🩷</div>
+  <div style="position:absolute; font-size:35px; animation: float 2.5s infinite; top:20%; left:80%;">💕</div>
+  <div style="position:absolute; font-size:45px; animation: float 3.5s infinite; top:80%; left:15%;">💗</div>
+</div>
+
+<style>
+@keyframes pop {
+  0% { transform: scale(0.3); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes bounce {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+@keyframes float {
+  0%,100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-30px) rotate(20deg); }
+}
+</style>
+
 <script>
 function sendOrder() {
   var name = document.getElementById("custName").value;
@@ -105,10 +141,14 @@ function sendOrder() {
 
   fetch("https://api.telegram.org/bot" + BOT_TOKEN + "/sendMessage?chat_id=" + MY_CHAT_ID + "&text=" + text)
   .then(() => {
-    document.getElementById("orderMsg").innerHTML = "Congratulations🩷<br>Order Received and will be packaged soon<br>Love you janu🩷";
+    var box = document.getElementById("bigLove");
+    box.style.display = "flex";
     document.getElementById("custName").value = "";
     document.getElementById("custDate").value = "";
   });
 }
-</script></body>
+function closeLove() {
+  document.getElementById("bigLove").style.display = "none";
+}
+  </script>body>
   </html>
