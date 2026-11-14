@@ -81,5 +81,34 @@ function sendOrder() {
     document.getElementById("custDate").value = "";
   });
 }
-  </script></body>
+  </script><!-- ORDER BOX -->
+<div style="background:#fff; padding:20px; border-radius:15px; max-width:400px; margin:20px auto; text-align:center; box-shadow:0 0 10px #ccc;">
+  <h2 style="margin:0 0 15px;">Order Now</h2>
+  <input id="custName" type="text" placeholder="Your Name" style="width:100%; padding:12px; margin-bottom:10px; border-radius:8px; border:1px solid #ccc;">
+  <input id="custDate" type="date" style="width:100%; padding:12px; margin-bottom:15px; border-radius:8px; border:1px solid #ccc;">
+  <button onclick="sendOrder()" style="width:100%; padding:12px; background:#25D366; color:#fff; border:none; border-radius:8px; font-size:16px; font-weight:bold;">ORDER NOW</button>
+  <p id="orderMsg" style="color:#e91e63; font-weight:bold; font-size:18px; margin-top:15px;"></p>
+</div>
+
+<script>
+function sendOrder() {
+  var name = document.getElementById("custName").value;
+  var date = document.getElementById("custDate").value;
+  if (name == "" || date == "") {
+    alert("Please put your Name and Date bro!");
+    return;
+  }
+
+  var BOT_TOKEN = "9233574751:AAE9U7naIb8xcQROfLdaaPNohGW-2iPqeYM";
+  var MY_CHAT_ID = "7681692094";
+  var text = "NEW ORDER!%0AName: " + name + "%0ADate Wanted: " + date;
+
+  fetch("https://api.telegram.org/bot" + BOT_TOKEN + "/sendMessage?chat_id=" + MY_CHAT_ID + "&text=" + text)
+  .then(() => {
+    document.getElementById("orderMsg").innerHTML = "Congratulations🩷<br>Order Received and will be packaged soon<br>Love you janu🩷";
+    document.getElementById("custName").value = "";
+    document.getElementById("custDate").value = "";
+  });
+}
+</script></body>
   </html>
